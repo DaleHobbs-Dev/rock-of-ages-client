@@ -1,0 +1,20 @@
+Table Users {
+  id int [pk, increment]
+  first_name varchar(50) [not null]
+  last_name varchar(50) [not null]
+  email varchar(100) [unique, not null]
+  username varchar(50) [unique, not null]
+}
+
+Table Rock {
+  id int [pk, increment]
+  name varchar(100) [not null]
+  weight decimal(10, 2) [not null]
+  type_id int [ref: > Type.id]
+  user_id int [ref: > Users.id]
+}
+
+Table Type {
+  id int [pk, increment]
+  label varchar(50) [not null]
+}
