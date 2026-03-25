@@ -1,46 +1,26 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { getTypes, collectRock } from "../services"
 
-export const RockForm = ({ fetchRocks }) => {
+export const RockForm = () => {
     const initialRockState = {
         name: "",
         weight: 0,
-        typeId: 0
+        type: 0,
+        user: JSON.parse(localStorage.getItem("rock_token")).user_id
     }
 
-    const [types, changeTypes] = useState([{ id: 1, label: "Igneous" }, { id: 2, label: "Volcanic" }])
+    const [types, changeTypes] = useState([])
     const [rock, updateRockProps] = useState(initialRockState)
     const navigate = useNavigate()
 
-    const fetchTypes = async () => {
-        const response = await fetch("http://localhost:8000/types", {
-            headers: {
-                "Authorization": `Token ${JSON.parse(localStorage.getItem("rock_token")).token}`
-            }
-        })
-        const types = await response.json()
-        changeTypes(types)
-    }
-
     useEffect(() => {
-        fetchTypes()
+        getTypes().then(changeTypes)
     }, [])
 
-
-    const collectRock = async (evt) => {
+    const handleCollectRock = async (evt) => {
         evt.preventDefault()
-
-        await fetch("http://localhost:8000/rocks", {
-            method: "POST",
-            headers: {
-                "Authorization": `Token ${JSON.parse(localStorage.getItem("rock_token")).token}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(rock)
-        })
-
-        await fetchRocks()
-
+        await collectRock(rock)
         navigate("/allrocks")
     }
 
@@ -89,7 +69,7 @@ export const RockForm = ({ fetchRocks }) => {
 
                     <fieldset>
                         <button type="submit"
-                            onClick={collectRock}
+                            onClick={handleCollectRock}
                             className="button rounded-md bg-blue-700 text-blue-100 p-3 mt-4">
                             Collect Rock
                         </button>

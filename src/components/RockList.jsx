@@ -2,12 +2,14 @@ import { useEffect } from "react"
 
 export const RockList = ({ rocks, fetchRocks }) => {
     useEffect(() => {
-    }, [])
+        fetchRocks();
+    }, [fetchRocks])
 
     const displayRocks = () => {
         if (rocks && rocks.length) {
             return rocks.map(rock => <div key={`key-${rock.id}`} className="border p-5 border-solid hover:bg-fuchsia-500 hover:text-violet-50 rounded-md border-violet-900 mt-5 bg-slate-50">
-                {rock.name} ({rock.type.label})
+               <p>{rock.name} ({rock.type.label}) weighs {rock.weight} kg and was added by {rock.user.username}.</p>
+               <p>This rock is in the collection of {rock.user.first_name} {rock.user.last_name}.</p>
             </div>)
         }
 

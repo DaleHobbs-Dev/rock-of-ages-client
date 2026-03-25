@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../services";
 import "./Login.css"
 
 export const Register = () => {
@@ -12,7 +13,7 @@ export const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:8000/register`, {
+        fetch(`${API_BASE_URL}/register`, {
             method: "POST",
             body: JSON.stringify({
                 email,
@@ -39,7 +40,7 @@ export const Register = () => {
         <main className="container--login">
             <dialog className="dialog dialog--auth" ref={existDialog}>
                 <div>User does not exist</div>
-                <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
+                <button className="button--close" onClick={() => existDialog.current.close()}>Close</button>
             </dialog>
 
             <section>
