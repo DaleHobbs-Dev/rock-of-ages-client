@@ -6,8 +6,7 @@ export const RockForm = () => {
     const initialRockState = {
         name: "",
         weight: 0,
-        type: 0,
-        user: JSON.parse(localStorage.getItem("rock_token")).user_id
+        type: 0
     }
 
     const [types, changeTypes] = useState([])
@@ -20,6 +19,10 @@ export const RockForm = () => {
 
     const handleCollectRock = async (evt) => {
         evt.preventDefault()
+        if (rock.type === 0) {
+            alert("Please select a rock type.")
+            return
+        }
         await collectRock(rock)
         navigate("/allrocks")
     }
@@ -55,7 +58,7 @@ export const RockForm = () => {
                         <select id="type" className="form-control"
                             onChange={e => {
                                 const copy = { ...rock }
-                                copy.type_id = parseInt(e.target.value)
+                                copy.type = parseInt(e.target.value)
                                 updateRockProps(copy)
                             }}>
                             <option value={0}>- Select a type -</option>

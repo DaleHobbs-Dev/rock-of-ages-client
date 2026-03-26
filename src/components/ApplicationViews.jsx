@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Authorized } from "./Authorized"
 import { Login } from "../pages/Login.jsx"
@@ -13,15 +13,15 @@ export const ApplicationViews = () => {
     const [rocksState, setRocksState] = useState([])
     const [myRocksState, setMyRocksState] = useState([])
 
-    const fetchRocksFromAPI = async () => {
+    const fetchRocksFromAPI = useCallback(async () => {
         const rocks = await getRocks()
         setRocksState(rocks)
-    }
+    }, [])
 
-    const fetchMyRocksFromAPI = async () => {
+    const fetchMyRocksFromAPI = useCallback(async () => {
         const rocks = await getMyRocks()
         setMyRocksState(rocks)
-    }
+    }, [])
 
     return <BrowserRouter>
         <Routes>
