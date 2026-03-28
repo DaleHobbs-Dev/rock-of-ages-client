@@ -31,7 +31,7 @@ export const ApplicationViews = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/allrocks" element={<RockList rocks={rocksState} fetchRocks={fetchRocksFromAPI} />} />
                 <Route path="/create" element={<RockForm fetchRocks={fetchRocksFromAPI} />} />
-                <Route path="/mine" element={<RockList rocks={myRocksState} fetchRocks={fetchMyRocksFromAPI} />} />
+                <Route path="/mine" element={<RockList rocks={myRocksState} fetchRocks={fetchMyRocksFromAPI} showDelete={true} />} />
             </Route>
         </Routes>
     </BrowserRouter>

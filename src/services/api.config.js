@@ -26,3 +26,14 @@ export const postJSON = async (endpoint, body) => {
     }
     return response.json()
 }
+
+export const deleteJSON = async (endpoint) => {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        method: "DELETE",
+        headers: getAuthHeader()
+    })
+    if (!response.ok) {
+        throw new Error(`Failed to delete ${endpoint}: ${response.statusText}`)
+    }
+    return response.status !== 204 ? response.json() : null
+}

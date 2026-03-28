@@ -4,7 +4,7 @@
 export { API_BASE_URL, fetchJSON, postJSON } from "./api.config";
 
 // Rock-related API calls
-export { getRocks, getMyRocks, collectRock } from "./rockservice";
+export { getRocks, getMyRocks, collectRock, deleteRock } from "./rockservice";
 
 // Type-related API calls
 export { getTypes } from "./typeservice";

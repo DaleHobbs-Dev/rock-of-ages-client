@@ -1,6 +1,6 @@
 // Services to handle API calls related to the Rocks
 
-import { fetchJSON, postJSON } from "./api.config"
+import { fetchJSON, postJSON, deleteJSON } from "./api.config"
 
 export const getRocks = async () => {
     try {
@@ -25,6 +25,15 @@ export const collectRock = async (rock) => {
         return await postJSON("rocks", rock);
     } catch (error) {
         console.error("Error collecting rock:", error);
+        throw error;
+    }
+}
+
+export const deleteRock = async (rockId) => {
+    try {
+        return await deleteJSON(`rocks/${rockId}`);
+    } catch (error) {
+        console.error("Error deleting rock:", error);
         throw error;
     }
 }
